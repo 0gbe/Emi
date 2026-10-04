@@ -737,10 +737,10 @@ const EMI_ART = {45:"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAkG
       S.warpOpen = 0;
       S.portalLock = 5.5;
       const side = ball.x < 200 ? -1 : 1;
-      ball.x = 200 + side * 78;
-      ball.y = 36;
-      ball.vx = side * 90;
-      ball.vy = 180;
+      ball.x = 200 + side * 90;
+      ball.y = 96;
+      ball.vx = side * 40;
+      ball.vy = 260;
       pay("portal", 2500, 200, 48, 1);
       popup(200, 78, "WARP");
       if (S.mission === 1) completeMission(200, 70);
@@ -816,6 +816,21 @@ const EMI_ART = {45:"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAkG
     if (ball.x > 348 && S.launchLock <= 0 && ball.y > 540 && Math.hypot(ball.vx, ball.vy) < 30) S.laneT += dt;
     else S.laneT = 0;
     if (S.laneT > 2.4) { ball.x = 200; ball.y = 460; ball.vx = 20; ball.vy = -180; S.laneT = 0; }
+    S.cageT = (S.cageT || 0) + dt;
+    S.cageMinX = Math.min(S.cageMinX || ball.x, ball.x);
+    S.cageMaxX = Math.max(S.cageMaxX || ball.x, ball.x);
+    S.cageMinY = Math.min(S.cageMinY || ball.y, ball.y);
+    S.cageMaxY = Math.max(S.cageMaxY || ball.y, ball.y);
+    if (S.cageT > 1.6) {
+      const span = Math.max(S.cageMaxX - S.cageMinX, S.cageMaxY - S.cageMinY);
+      if (span < 70 && Math.hypot(ball.vx, ball.vy) > 80) {
+        ball.vy = Math.max(ball.vy, 280);
+        ball.vx *= .4;
+        popup(ball.x, ball.y - 16, "FREE");
+      }
+      S.cageT = 0;
+      S.cageMinX = ball.x; S.cageMaxX = ball.x; S.cageMinY = ball.y; S.cageMaxY = ball.y;
+    }
     if (!Number.isFinite(ball.x) || !Number.isFinite(ball.y)) { ball.x = 200; ball.y = 460; ball.vx = 0; ball.vy = -160; }
   }
   function drain() {
