@@ -9,14 +9,15 @@
 html,body{margin:0;height:100%;height:100svh;overflow:hidden;background:#05060a;color:var(--paper);font-family:"IBM Plex Mono",ui-monospace,monospace;touch-action:none;overscroll-behavior:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
 button,input{font-family:inherit}
 .cab{min-height:100dvh;display:grid;background:radial-gradient(80% 40% at 50% 0%,#3a2a1c 0%,#1a120c 28%,#07080c 70%)}
-.play{display:flex;flex-direction:column;height:100svh;max-height:100svh;overflow:hidden;justify-content:flex-start;padding-top:calc(64px + var(--safe-t));padding-bottom:0;background:#05060a}
-.backbox{position:relative;z-index:30;padding:8px 10px;display:flex;flex-wrap:wrap;align-items:center;gap:8px;border:1px solid #6a5438;border-bottom:4px solid #2a2118;background:linear-gradient(#1c1612,#0c0a08);box-shadow:inset 0 1px 0 rgba(255,220,160,.25)}
+.play{display:flex;flex-direction:column;height:100svh;max-height:100svh;overflow:hidden;justify-content:flex-start;padding-top:var(--safe-t);padding-bottom:0;background:#05060a}
+.backbox{position:relative;z-index:30;padding:0 10px 8px;display:flex;flex-direction:column;gap:0;border:0;background:#05060a}
 .brand{display:none}
 .dmd{display:flex;gap:3px;justify-content:flex-end}
 .dmd-label{display:none}
 .dig{width:16px;height:24px;border-radius:3px;background:#041006;color:#163018;display:grid;place-items:center;font-family:"Archivo Black",sans-serif;font-size:16px}
 .dig.on{color:#e9ff9a;box-shadow:0 0 10px rgba(214,255,58,.45)}
 .dig.hot{color:#fff}
+.top-gap{height:36px;background:#05060a;width:100%}
 .meta{display:flex;align-items:center;gap:8px;width:100%;justify-content:space-between;background:#10160c;border:2px solid #d6ff3a;border-radius:12px;padding:8px}
 .status{flex:1;font-size:10px;letter-spacing:.12em;color:var(--line);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pips{display:flex;gap:5px}.pip{width:8px;height:8px;border-radius:50%;background:#12161c}.pip.on{background:var(--lime)}
@@ -64,7 +65,7 @@ input{width:100%;margin-top:6px;background:#0a0c10;border:1px solid #2a3644;colo
 @media(min-width:960px){.cab{grid-template-columns:minmax(420px,560px) 300px;justify-content:center}.board{display:block}canvas{width:min(460px,70vh*.625)}}
 </style></head><body>
 <div class="cab"><section class="play">
-<header class="backbox"><div class="meta"><button class="spiral" id="tripBtn" type="button" aria-label="Trippy mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 12c2 0 3-1.2 3-2.4S13.6 7 12 7s-3 1-3 2.4 1 2.6 3 2.6z"/><path d="M12 12c3.2 0 5-2 5-4.2S15.2 3.4 12 3.4 6.6 5.4 6.6 7.8 8.8 12 12 12z"/><path d="M12 12c4.4 0 7.2-2.8 7.2-6.2"/></svg></button>
+<header class="backbox"><div class="top-gap"></div><div class="meta"><button class="spiral" id="tripBtn" type="button" aria-label="Trippy mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 12c2 0 3-1.2 3-2.4S13.6 7 12 7s-3 1-3 2.4 1 2.6 3 2.6z"/><path d="M12 12c3.2 0 5-2 5-4.2S15.2 3.4 12 3.4 6.6 5.4 6.6 7.8 8.8 12 12 12z"/><path d="M12 12c4.4 0 7.2-2.8 7.2-6.2"/></svg></button>
 <button class="icon-btn" id="boardBtn" type="button">SCORES</button>
 <button class="icon-btn" id="groundBtn" type="button">LOOK</button>
 <button class="icon-btn" id="muteBtn" type="button">SOUND</button></div></header>
