@@ -163,8 +163,8 @@ const EMI_ART = {45:"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAkG
   };
   const ball = { x: 360, y: 560, vx: 0, vy: 0, r: R };
   const flips = {
-    L: { px: 118, py: 546, len: 78, rest: .58, raised: -.72, angle: .58, omega: 0, held: false },
-    R: { px: 282, py: 546, len: 78, rest: Math.PI - .58, raised: Math.PI + .72, angle: Math.PI - .58, omega: 0, held: false }
+    L: { px: 112, py: 546, len: 88, rest: .58, raised: -.72, angle: .58, omega: 0, held: false },
+    R: { px: 288, py: 546, len: 88, rest: Math.PI - .58, raised: Math.PI + .72, angle: Math.PI - .58, omega: 0, held: false }
   };
   const bumpers = [
     { x: 140, y: 210, r: 24, cd: 0, id: 45, hue: 0 },
@@ -233,15 +233,12 @@ const EMI_ART = {45:"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAkG
         for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
         this.noise = n;
       }
-      if (this.ctx.state === "suspended") this.ctx.resume();
-      if (!this.musicOn) this.music();
-      const src = this.ctx.createBufferSource();
-      const g = this.ctx.createGain();
-      src.buffer = this.noise;
-      g.gain.value = .0001;
-      src.connect(g); g.connect(this.master);
-      src.start();
-      src.stop(this.ctx.currentTime + .02);
+      const go = () => {
+        if (!this.musicOn) this.music();
+        this.tone(this.ctx.currentTime, 220, "sine", .04, .12);
+      };
+      if (this.ctx.state === "suspended") this.ctx.resume().then(go).catch(go);
+      else go();
     },
     env(t, v, dur) {
       const g = this.ctx.createGain();
@@ -464,7 +461,7 @@ const EMI_ART = {45:"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAkG
     const px = f.px + dx * t, py = f.py + dy * t;
     const ox = b.x - px, oy = b.y - py;
     const d = Math.hypot(ox, oy) || .0001;
-    const reach = b.r + 11;
+    const reach = b.r + 16;
     if (d >= reach) return false;
     const nx = ox / d, ny = oy / d;
     b.x += nx * (reach - d);
@@ -473,8 +470,8 @@ const EMI_ART = {45:"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAkG
     const tx = -Math.sin(f.angle), ty = Math.cos(f.angle);
     const tip = Math.max(.15, t);
     const kick = Math.abs(f.omega) * f.len * tip * .55;
-    b.vx += tx * kick + nx * (rising ? 90 : 10);
-    b.vy += ty * kick + ny * (rising ? 30 : 6);
+    b.vx += tx * kick + nx * (rising ? 140 : 16);
+    b.vy += ty * kick + ny * (rising ? 40 : 8) - (rising ? 220 : 0);
     const vn = b.vx * nx + b.vy * ny;
     if (vn < 0) { b.vx -= 1.35 * vn * nx; b.vy -= 1.35 * vn * ny; }
     if (f.held && !rising && Math.hypot(b.vx, b.vy) < 90 && t > .2 && t < .85) {
@@ -486,7 +483,7 @@ const EMI_ART = {45:"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAkG
   function moveFlip(f, held, dt) {
     f.held = !!held;
     const target = held ? f.raised : f.rest;
-    const speed = held ? 48 : 32;
+    const speed = held ? 62 : 40;
     const diff = target - f.angle;
     const max = speed * dt;
     const step = Math.abs(diff) < max ? diff : Math.sign(diff) * max;
