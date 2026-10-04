@@ -997,6 +997,21 @@ const EMI_ART = {45:"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAkG
     g.fillStyle = well;
     roundOn(g, 22, 26, 356, 572, 16);
     g.fill();
+    const felt = g.createRadialGradient(200, 180, 20, 200, 320, 340);
+    felt.addColorStop(0, "rgba(40,70,90,.55)");
+    felt.addColorStop(1, "rgba(0,0,0,0)");
+    g.fillStyle = felt;
+    g.fillRect(24, 28, 352, 560);
+    g.strokeStyle = "rgba(214,255,58,.18)";
+    g.lineWidth = 2;
+    g.beginPath();
+    g.moveTo(70, 520); g.lineTo(118, 470); g.lineTo(118, 120); g.stroke();
+    g.beginPath();
+    g.moveTo(330, 520); g.lineTo(282, 470); g.lineTo(282, 120); g.stroke();
+    g.fillStyle = "rgba(255,210,80,.12)";
+    for (const [x, y] of [[86, 150], [314, 150], [200, 96]]) {
+      g.beginPath(); g.ellipse(x, y, 22, 10, 0, 0, 6.28); g.fill();
+    }
     // inner shadow for depth
     g.save();
     g.strokeStyle = "rgba(0,0,0,.65)";
