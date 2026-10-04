@@ -54,7 +54,7 @@ input{width:100%;margin-top:6px;background:#0a0c10;border:1px solid #2a3644;colo
 .board h3{margin:0 0 10px;font-family:"Archivo Black",sans-serif;letter-spacing:.12em;font-size:13px;color:var(--line)}
 .score-row{display:grid;grid-template-columns:22px 1fr auto;gap:8px;font-size:12px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.05)}
 .score-row b{color:var(--lime);font-weight:500}.empty{color:#8a8175;font-size:12px}
-.apron{position:relative;z-index:8;flex:none;width:100%;margin:0;background:linear-gradient(#2a2118,#120e0b);display:grid;grid-template-columns:28px 14px minmax(0,1fr) 72px minmax(0,1fr) 14px 28px;gap:6px;padding:6px 6px 8px}
+.apron{position:relative;z-index:8;flex:none;width:100%;margin:0;background:linear-gradient(#3a2c20,#120e0b);box-shadow:inset 0 1px 0 rgba(255,220,160,.25);display:grid;grid-template-columns:28px 14px minmax(0,1fr) 72px minmax(0,1fr) 14px 28px;gap:6px;padding:8px 8px 10px}
 .edge-guard{height:max(20px,var(--safe-b));flex:none;pointer-events:none;background:#05060a}
 .apron button{height:72px;border-radius:40px;font-size:13px;border:2px solid #d7d2c8;background:radial-gradient(circle at 50% 30%,#ff5a4a,#8d1c16);color:#fff;letter-spacing:.08em;font-weight:700;touch-action:none;-webkit-appearance:none;appearance:none;outline:none;box-shadow:0 4px 0 #3a120e,inset 0 2px 0 rgba(255,255,255,.35)}
 .apron button:active,.apron button:focus,.apron button:hover{background:linear-gradient(#1c2430,#10141a);color:var(--paper);border-color:#243044;filter:none;opacity:1}
@@ -1570,6 +1570,15 @@ const EMI_ART = {45:"data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAkG
       ctx.fillStyle = "rgba(0,0,0,.25)";
       ctx.fillRect(0, 0, W, H);
     }
+    ctx.save();
+    ctx.strokeStyle = "rgba(214,255,58,.35)";
+    ctx.lineWidth = 2;
+    ctx.strokeRect(18, 28, 364, 560);
+    ctx.fillStyle = "rgba(255,255,255,.08)";
+    for (const [x, y] of [[24, 36], [370, 36], [24, 560], [370, 560]]) {
+      ctx.beginPath(); ctx.arc(x, y, 3, 0, 6.28); ctx.fill();
+    }
+    ctx.restore();
     const glass = ctx.createLinearGradient(0, 0, 80, 220);
     glass.addColorStop(0, "rgba(255,255,255,.16)");
     glass.addColorStop(.35, "rgba(255,255,255,0)");
